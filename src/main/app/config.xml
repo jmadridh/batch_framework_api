@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.8.5"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+
+	<spring:beans>
+		<spring:bean id="PollSynchronizer" name="PollSynchronizer"
+			class="com.inchcape.util.PollSynchronizer" scope="singleton" doc:description="Singleton Bean to manage a semaphore for batch processing." />
+	</spring:beans>
+	
+	<configuration doc:name="ReceiverThreadingProfile"
+		doc:description="Threading Profile for Receiver Threads">
+		<default-receiver-threading-profile
+			maxThreadsActive="10" threadTTL="20000" doThreading="true"
+			poolExhaustedAction="WAIT" />
+	</configuration>
+
+	<configuration doc:name="DispatcherThreadingProfile"
+		doc:description="Threading Profile for Dispatcher Threads">
+		<default-dispatcher-threading-profile
+			maxThreadsActive="10" threadTTL="10000" doThreading="true"
+			poolExhaustedAction="WAIT" />
+	</configuration>
+	
+	<http:listener-config name="file_batch_api_httpListenerConfiguration"
+		host="${http.batch.host}" port="${http.batch.port}" doc:name="HTTP Listener Configuration"
+		doc:description="Global HTTP Configuration" />
+
+</mule>
