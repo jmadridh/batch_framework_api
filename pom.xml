@@ -27,12 +27,6 @@
 				<extensions>true</extensions>
 				<configuration>
                     <copyToAppsDirectory>true</copyToAppsDirectory>
-                    <inclusions>
-						<inclusion>
-							<groupId>com.mulesoft.security</groupId>
-							<artifactId>mule-module-security-property-placeholder</artifactId>
-						</inclusion>
-                    </inclusions>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -132,13 +126,6 @@
 			<version>${mule.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- security property placeholder -->
-		<dependency>
-			<groupId>com.mulesoft.security</groupId>
-			<artifactId>mule-module-security-property-placeholder</artifactId>
-			<version>${mule.security.placeholder.version}</version>
-		</dependency>
-		
 	</dependencies>
 
 	<repositories>
