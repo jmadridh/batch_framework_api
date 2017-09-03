@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.inchcape</groupId>
-	<artifactId>batch_framework_api</artifactId>
+	<groupId>com.inchcape.framework</groupId>
+	<artifactId>batch</artifactId>
     <version>1.0.0</version>
     <packaging>mule</packaging>
 	<name>Mule Batch Framework Application</name>
@@ -89,19 +89,7 @@
 		</dependency>
 		<dependency>
         	<groupId>com.mulesoft.muleesb.transports</groupId>
-			<artifactId>mule-transport-jdbc-ee</artifactId>
-			<version>${mule.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-        	<groupId>com.mulesoft.muleesb.transports</groupId>
 			<artifactId>mule-transport-jms-ee</artifactId>
-			<version>${mule.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-vm</artifactId>
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
