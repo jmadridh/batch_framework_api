@@ -7,7 +7,7 @@
 	<artifactId>batch</artifactId>
     <version>1.0.0</version>
     <packaging>mule</packaging>
-	<name>Mule Batch Framework Application</name>
+	<name>InchcapeBatchFrameworkApplication</name>
 
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,6 +15,7 @@
 
 		<mule.version>3.8.5</mule.version>
     	<mule.tools.version>1.2</mule.tools.version>
+		<mule.security.placeholder.version>1.6.5</mule.security.placeholder.version>
 	</properties>
 
 	<build>
@@ -26,6 +27,12 @@
 				<extensions>true</extensions>
 				<configuration>
                     <copyToAppsDirectory>true</copyToAppsDirectory>
+                    <inclusions>
+						<inclusion>
+							<groupId>com.mulesoft.security</groupId>
+							<artifactId>mule-module-security-property-placeholder</artifactId>
+						</inclusion>
+                    </inclusions>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -93,6 +100,12 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-sftp</artifactId>
+			<version>${mule.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Mule Modules -->
 		<dependency>
 			<groupId>org.mule.modules</groupId>
@@ -106,6 +119,12 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-http</artifactId>
+			<version>${mule.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- for testing -->
 		<dependency>
 			<groupId>org.mule.tests</groupId>
@@ -113,6 +132,13 @@
 			<version>${mule.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- security property placeholder -->
+		<dependency>
+			<groupId>com.mulesoft.security</groupId>
+			<artifactId>mule-module-security-property-placeholder</artifactId>
+			<version>${mule.security.placeholder.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<repositories>

@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+<mule xmlns:https="http://www.mulesoft.org/schema/mule/https"
+	xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.8.5"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd 
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd 
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
 	<spring:beans>
 		<spring:bean id="PollSynchronizer" name="PollSynchronizer"
-			class="com.inchcape.util.PollSynchronizer" scope="singleton" doc:description="Singleton Bean to manage a semaphore for batch processing." />
+			class="com.inchcape.util.PollSynchronizer" scope="singleton"
+			doc:description="Singleton Bean to manage a semaphore for batch processing." />
 	</spring:beans>
-	
+
 	<configuration doc:name="ReceiverThreadingProfile"
 		doc:description="Threading Profile for Receiver Threads">
 		<default-receiver-threading-profile
@@ -26,9 +29,35 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 			maxThreadsActive="10" threadTTL="10000" doThreading="true"
 			poolExhaustedAction="WAIT" />
 	</configuration>
-	
+
+	<!-- HTTP Listener Configuration -->
 	<http:listener-config name="file_batch_api_httpListenerConfiguration"
 		host="${http.batch.host}" port="${http.batch.port}" doc:name="HTTP Listener Configuration"
 		doc:description="Global HTTP Configuration" />
+
+	<!-- HTTPS Endpoint Configuration -->
+	<https:connector name="endpointHTTPSConfiguration"
+		doc:description="Configuration for HTTPS Connectors">
+		<https:tls-client path="${tls.batch.client.path}"
+			storePassword="${tls.batch.client.storepassword}" />
+		<https:tls-key-store path="${tls.batch.keystore.path}"
+			keyPassword="${tls.batch.keystore.password}" storePassword="${tls.batch.keystore.storepassword}" />
+		<https:tls-server path="${tls.batch.server.path}"
+			storePassword="${tls.batch.server.storepassword}" />
+	</https:connector>
+
+	<!-- SFTP Endpoint Configuration -->
+	<sftp:endpoint host="${sftp.host}" port="${sftp.port}"
+		path="${sftp.path}" user="${sftp.username}" password="${sftp.password}"
+		name="sftpInboundProperties" responseTimeout="10000" doc:name="SFTP"
+		exchange-pattern="one-way"
+		doc:description="SFTP Inbound Configuration Properties.
+Include: 
+- Polling Frequency 
+- Reconnect Strategy">
+		<reconnect frequency="${sftp.reconnectFrequency}" count="${sftp.reconnection}"
+			blocking="false" />
+	</sftp:endpoint>
+
 
 </mule>
