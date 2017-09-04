@@ -45,12 +45,6 @@
 								<resource>
 									<directory>src/main/app/</directory>
 								</resource>
-								<resource>
-									<directory>src/main/api/</directory>
-								</resource>
-								<resource>
-									<directory>mappings/</directory>
-								</resource>
 							</resources>
 						</configuration>
 					</execution>
