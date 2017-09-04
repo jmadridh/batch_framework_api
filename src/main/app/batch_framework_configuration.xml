@@ -44,16 +44,12 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
 	<!-- SFTP Endpoint Configuration -->
 	<sftp:endpoint host="${sftp.host}" port="${sftp.port}"
-		path="${sftp.path}" user="${sftp.username}" password="${sftp.password}"
-		name="sftpInboundProperties" responseTimeout="10000" doc:name="SFTP"
-		exchange-pattern="one-way"
-		doc:description="SFTP Inbound Configuration Properties.
+		path="${sftp.path}" user="${sftp.username}" password="${sftp.password}" name="sftpInboundProperties" responseTimeout="10000" doc:name="SFTP"
+		exchange-pattern="one-way" doc:description="SFTP Inbound Configuration Properties.
 Include: 
 - Polling Frequency 
 - Reconnect Strategy">
-		<reconnect frequency="${sftp.reconnectFrequency}" count="${sftp.reconnection}"
-			blocking="false" />
+		<reconnect frequency="${sftp.reconnectFrequency}" count="${sftp.reconnection}" blocking="false" />
 	</sftp:endpoint>
-
-
+	
 </mule>
