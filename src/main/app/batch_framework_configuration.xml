@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:core="http://www.mulesoft.org/schema/mule/core"
-	xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+<mule xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.8.5"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd 
-http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd 
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-
-	<spring:beans>
-		<spring:bean id="PollSynchronizer" name="PollSynchronizer"
-			class="com.inchcape.util.PollSynchronizer" scope="singleton"
-			doc:description="Singleton Bean to manage a semaphore for batch processing." />
-	</spring:beans>
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd">
 
 	<configuration doc:name="ReceiverThreadingProfile"
 		doc:description="Threading Profile for Receiver Threads">
@@ -36,7 +30,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 		doc:description="Global HTTP Configuration" />
 
 	<!-- HTTPS Endpoint Configuration -->
-	<https:connector name="endpointHTTPSConfiguration"
+	<!-- <https:connector name="endpointHTTPSConfiguration"
 		doc:description="Configuration for HTTPS Connectors">
 		<https:tls-client path="${tls.batch.client.path}"
 			storePassword="${tls.batch.client.storepassword}" />
@@ -46,7 +40,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 			storePassword="${tls.batch.server.storepassword}" />
 		<reconnect frequency="${https.batch.reconnectFrequency}"
 			count="${https.batch.reconnection}" blocking="false" />
-	</https:connector>
+	</https:connector> -->
 
 	<!-- SFTP Endpoint Configuration -->
 	<sftp:endpoint host="${sftp.host}" port="${sftp.port}"
