@@ -15,7 +15,6 @@
 
 		<mule.version>3.8.5</mule.version>
     	<mule.tools.version>1.2</mule.tools.version>
-		<mule.security.placeholder.version>1.6.5</mule.security.placeholder.version>
 	</properties>
 
 	<build>
