@@ -8,8 +8,8 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 
 	
 	<sub-flow name="batch_common_variables">
-        <set-variable variableName="market" value="#[message.inboundProperties.'market']" doc:name="market"/>
-        <set-variable variableName="type_object" value="#[message.inboundProperties.'type_object']" doc:name="type_object"/>
+        <set-variable variableName="market" value="#[flowVars.commonVariables[0]]" doc:name="market"/>
+        <set-variable variableName="type_object" value="#[flowVars.commonVariables[1]]" doc:name="type_object"/>
     </sub-flow>
 	
 </mule>

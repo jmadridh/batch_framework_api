@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+<mule xmlns:context="http://www.springframework.org/schema/context" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
 http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd">
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd">
 
 	<configuration doc:name="ReceiverThreadingProfile"
 		doc:description="Threading Profile for Receiver Threads">
@@ -28,7 +30,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	<http:listener-config name="file_batch_api_httpListenerConfiguration"
 		host="${http.batch.host}" port="${http.batch.port}" doc:name="HTTP Listener Configuration"
 		doc:description="Global HTTP Configuration" />
-
+	
 	<!-- HTTPS Endpoint Configuration -->
 	<!-- <https:connector name="endpointHTTPSConfiguration"
 		doc:description="Configuration for HTTPS Connectors">
@@ -43,13 +45,14 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	</https:connector> -->
 
 	<!-- SFTP Endpoint Configuration -->
-	<sftp:endpoint host="${sftp.host}" port="${sftp.port}"
-		path="${sftp.path}" user="${sftp.username}" password="${sftp.password}" name="sftpInboundProperties" responseTimeout="10000" doc:name="SFTP"
-		exchange-pattern="one-way" doc:description="SFTP Inbound Configuration Properties.
+	<!-- <sftp:endpoint host="${sftp.host}" port="${sftp.port}" path="${sftp.path.input}"
+		user="${sftp.username}" password="${sftp.password}"
+		exchange-pattern="one-way" pollingFrequency="${sftp.pollingFrequency}" responseTimeout="10000"  
+		name="sftpInboundProperties" doc:name="SFTP" doc:description="SFTP Inbound Configuration Properties.
 Include: 
 - Polling Frequency 
 - Reconnect Strategy">
 		<reconnect frequency="${sftp.reconnectFrequency}" count="${sftp.reconnection}" blocking="false" />
-	</sftp:endpoint>
+	</sftp:endpoint> -->
 	
 </mule>
