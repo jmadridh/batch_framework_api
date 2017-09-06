@@ -8,8 +8,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
 ---
-{
-}]]></dw:set-payload>
+payload]]></dw:set-payload>
         </dw:transform-message>
     </sub-flow>
 </mule>
