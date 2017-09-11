@@ -25,7 +25,7 @@ http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/q
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
-	<context:property-placeholder location="classpath:${env}.properties"
+	<context:property-placeholder location="classpath:${env}.properties,common.properties"
 		ignore-resource-not-found="true" system-properties-mode="OVERRIDE" />
 		
         <flow name="input" initialState="stopped">
@@ -42,6 +42,5 @@ payload]]></dw:set-payload>
         <batch:execute name="${batch.country.business.object}" doc:name="${batch.country.business.object}"/>
         <expression-component doc:name="stopping batch"><![CDATA[app.registry.'input'.stop();]]></expression-component>
 	</flow>
-	
 
 </mule>
