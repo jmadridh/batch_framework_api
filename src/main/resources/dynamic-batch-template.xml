@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz" xmlns:schedulers="http://www.mulesoft.org/schema/mule/schedulers" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" 
+xmlns:http="http://www.mulesoft.org/schema/mule/http" 
+xmlns:jms="http://www.mulesoft.org/schema/mule/jms" 
+xmlns:context="http://www.springframework.org/schema/context" 
+xmlns:vm="http://www.mulesoft.org/schema/mule/vm" 
+xmlns="http://www.mulesoft.org/schema/mule/core" 
+xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+        xmlns:spring="http://www.springframework.org/schema/beans" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/schedulers http://www.mulesoft.org/schema/mule/schedulers/current/mule-schedulers.xsd
+http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/current/mule-quartz.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
+	<context:property-placeholder location="classpath:${env}.properties"
+		ignore-resource-not-found="true" system-properties-mode="OVERRIDE" />
+		
+        <flow name="input" initialState="stopped">
+			<sftp:inbound-endpoint host="${sftp.host}" port="${sftp.port}" path="${sftp.path.country.business.object}" user="${sftp.username}" password="${sftp.password}"   responseTimeout="10000" name="SFTP" doc:name="SFTP">
+                <file:filename-wildcard-filter pattern="*.csv" caseSensitive="false"/>
+                <!-- <reconnect blocking="false" frequency="${sftp.frequency.country.business.object}" count="${sftp.attempts.country.business.object}"/> -->
+            </sftp:inbound-endpoint>
+        <dw:transform-message doc:name="payload">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+payload]]></dw:set-payload>
+        </dw:transform-message>
+        <batch:execute name="${batch.country.business.object}" doc:name="${batch.country.business.object}"/>
+        <expression-component doc:name="stopping batch"><![CDATA[app.registry.'input'.stop();]]></expression-component>
+	</flow>
+	
+
+</mule>

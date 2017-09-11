@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.inchcape.framework</groupId>
@@ -26,7 +25,13 @@
 				<extensions>true</extensions>
 				<configuration>
                     <copyToAppsDirectory>true</copyToAppsDirectory>
-				</configuration>
+				<inclusions>
+                        <inclusion>
+                            <groupId>com.mulesoft.muleesb.modules</groupId>
+                            <artifactId>mule-module-anypoint-mq-ee</artifactId>
+                        </inclusion>
+                    </inclusions>
+                </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -119,7 +124,19 @@
 			<version>${mule.version}</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+	<dependency>
+            <groupId>com.mulesoft.muleesb.modules</groupId>
+            <artifactId>mule-module-anypoint-mq-ee</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-spring-config</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+    </dependencies>
 
 	<repositories>
           <repository>
