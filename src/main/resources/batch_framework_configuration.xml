@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:context="http://www.springframework.org/schema/context" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+<mule xmlns:secure-property-placeholder="http://www.mulesoft.org/schema/mule/secure-property-placeholder" xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:context="http://www.springframework.org/schema/context" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
@@ -11,7 +11,8 @@ http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sft
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
-http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd">
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd
+http://www.mulesoft.org/schema/mule/secure-property-placeholder http://www.mulesoft.org/schema/mule/secure-property-placeholder/current/mule-secure-property-placeholder.xsd">
 
 	<configuration doc:name="ReceiverThreadingProfile"
 		doc:description="Threading Profile for Receiver Threads">
@@ -28,35 +29,9 @@ http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/m
 	</configuration>
 
 	<!-- HTTP Listener Configuration -->
-	<http:listener-config name="file_batch_api_httpListenerConfiguration"
+	<http:listener-config name="InchcapeHttpListenerConfiguration"
 		host="${http.batch.host}" port="${http.batch.port}" doc:name="HTTP Listener Configuration"
-		doc:description="Global HTTP Configuration" />
-    <anypoint-mq:config name="InchcapeAnypointMQConfig" doc:name="Anypoint MQ Configuration">
-        <anypoint-mq:provider url="${anypointmq.url}" clientId="${anypointmq.client.id}" clientSecret="${anypointmq.client.secret}"/>
-    </anypoint-mq:config>
+		doc:description="Global Batch HTTP Configuration" />
 	
-	<!-- HTTPS Endpoint Configuration -->
-	<!-- <https:connector name="endpointHTTPSConfiguration"
-		doc:description="Configuration for HTTPS Connectors">
-		<https:tls-client path="${tls.batch.client.path}"
-			storePassword="${tls.batch.client.storepassword}" />
-		<https:tls-key-store path="${tls.batch.keystore.path}"
-			keyPassword="${tls.batch.keystore.password}" storePassword="${tls.batch.keystore.storepassword}" />
-		<https:tls-server path="${tls.batch.server.path}"
-			storePassword="${tls.batch.server.storepassword}" />
-		<reconnect frequency="${https.batch.reconnectFrequency}"
-			count="${https.batch.reconnection}" blocking="false" />
-	</https:connector> -->
-
-	<!-- SFTP Endpoint Configuration -->
-	<!-- <sftp:endpoint host="${sftp.host}" port="${sftp.port}" path="${sftp.path.input}"
-		user="${sftp.username}" password="${sftp.password}"
-		exchange-pattern="one-way" pollingFrequency="${sftp.pollingFrequency}" responseTimeout="10000"  
-		name="sftpInboundProperties" doc:name="SFTP" doc:description="SFTP Inbound Configuration Properties.
-Include: 
-- Polling Frequency 
-- Reconnect Strategy">
-		<reconnect frequency="${sftp.reconnectFrequency}" count="${sftp.reconnection}" blocking="false" />
-	</sftp:endpoint> -->
 	
 </mule>
