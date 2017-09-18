@@ -39,7 +39,8 @@ public class DynamicPropertySetter extends SecurePropertyPlaceholderModule imple
 		// Target System API 
 		System.setProperty("targetSystemNameAPI", "targetSystemAPI_"+object);
 		System.setProperty("targetSystemAPI", (String) eventContext.getMessage().getOutboundProperty("targetSystemAPI"));
-		System.setProperty("pathTargetSystemAPI", (String) eventContext.getMessage().getOutboundProperty("pathTargetSystemAPI"));
+		System.setProperty("pathTargetSystemAPI", "/"+object+"/"+(String) eventContext.getMessage().getOutboundProperty("pathTargetSystemAPI"));
+		System.setProperty("portTargetSystemAPI", String.valueOf(eventContext.getMessage().getOutboundProperty("portTargetSystemAPI")));
 		
 		return eventContext.getMessage().getPayload();
 	}
